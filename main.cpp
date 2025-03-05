@@ -24,6 +24,12 @@ void onKeyEvent(uiohook_event* event) {
 		displayKeyPressed(event->data.keyboard, window);
 	if (event->type == EVENT_KEY_RELEASED)
 		displayKeyReleased(event->data.keyboard, window);
+	while (const std::optional event = window.pollEvent()) {
+		if (event->is<sf::Event::Closed>()) {
+			window.close();
+			hook_stop();
+		}
+	}
 }
 
 int main(const int argc, [[maybe_unused]] char **argv) {
@@ -49,8 +55,10 @@ int main(const int argc, [[maybe_unused]] char **argv) {
 
 	while (window.isOpen()) {
 		while (const std::optional event = window.pollEvent()) {
-			if (event->is<sf::Event::Closed>())
+			if (event->is<sf::Event::Closed>()) {
 				window.close();
+				hook_stop();
+			}
 		}
 	}
 
