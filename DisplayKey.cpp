@@ -7,11 +7,14 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Text.hpp>
 
 #include <unordered_map>
 #include <vector>
 #include <algorithm>
 #include <uiohook.h>
+
+#include "SFML/Graphics/Font.hpp"
 
 // Define a map of key positions (QWERTY layout example)
 std::unordered_map<uint16_t, sf::Vector2f> keyPositions = {
@@ -80,10 +83,17 @@ void displayKeyPressed(const keyboard_event_data event_data, sf::RenderWindow &w
 
     key_sprite.setPosition(position);
 
-    window.draw(key_sprite);
-    window.display();
+	sf::Font font("Arial.ttf");
+	sf::Text text(font);
 
-    std::cout << position.x << ", " << position.y << " pressed" << std::endl;
+	text.setString(static_cast<char>(event_data.rawcode));
+	text.setPosition(position);
+
+	std::cout << event_data.rawcode << std::endl;
+
+    window.draw(key_sprite);
+	window.draw(text);
+    window.display();
 }
 
 void displayKeyReleased(const keyboard_event_data event_data, sf::RenderWindow &window) {
@@ -97,6 +107,4 @@ void displayKeyReleased(const keyboard_event_data event_data, sf::RenderWindow &
 
     window.draw(key_sprite);
     window.display();
-
-    std::cout << position.x << ", " << position.y << " released" << std::endl;
 }
