@@ -1,5 +1,4 @@
 #include <iostream>
-#include <libudev.h>
 #include <unordered_map>
 
 #include <SFML/Window.hpp>
@@ -95,6 +94,9 @@ void displayKeyPressed(const keyboard_event_data event_data, sf::RenderWindow &w
     window.draw(key_sprite);
 	window.draw(text);
     window.display();
+    window.draw(key_sprite);
+	window.draw(text);
+    window.display();
 }
 
 void displayKeyReleased(const keyboard_event_data event_data, sf::RenderWindow &window) {
@@ -108,4 +110,7 @@ void displayKeyReleased(const keyboard_event_data event_data, sf::RenderWindow &
 
     window.draw(key_sprite);
     window.display();
+    window.draw(key_sprite);
+    window.display();
+
 }

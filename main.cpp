@@ -17,7 +17,7 @@ constexpr int offset = 25;
 constexpr unsigned int width = 50 * 21 + 3 * offset;
 constexpr unsigned int height = 50 * 6 + 1 * offset;
 
-sf::RenderWindow window(sf::VideoMode({width, height}), "Keyboard overlay");
+sf::RenderWindow window(sf::VideoMode({width, height}), "Keyboard overlay", sf::Style::Titlebar | sf::Style::Close);
 
 void onKeyEvent(uiohook_event* event) {
 	if (event->type == EVENT_KEY_PRESSED)
@@ -45,7 +45,7 @@ int main(const int argc, [[maybe_unused]] char **argv) {
     window.draw(background_sprite);
 	window.display();
 
-	window.setFramerateLimit(60);
+	window.setFramerateLimit(240);
 
 	hook_set_dispatch_proc(onKeyEvent);
 	if (hook_run() != UIOHOOK_SUCCESS) {

@@ -13,3 +13,4 @@ FetchContent_MakeAvailable(libuiohook)
 
 add_executable(keyboard_overlay main.cpp DisplayKey.cpp)
 target_link_libraries(keyboard_overlay PRIVATE SFML::Graphics uiohook)
+target_include_directories(keyboard_overlay PRIVATE ${libuiohook_SOURCE_DIR}/include)
