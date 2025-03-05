@@ -89,8 +89,6 @@ void displayKeyPressed(const keyboard_event_data event_data, sf::RenderWindow &w
 	text.setString(static_cast<char>(event_data.rawcode));
 	text.setPosition({position.x + 15, position.y});
 
-	std::cout << event_data.rawcode << std::endl;
-
     window.draw(key_sprite);
 	window.draw(text);
     window.display();
