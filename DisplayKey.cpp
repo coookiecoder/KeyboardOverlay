@@ -75,7 +75,7 @@ std::unordered_map<uint16_t, sf::Vector2f> keyPositions = {
 };
 
 void displayKeyPressed(const keyboard_event_data event_data, sf::RenderWindow &window) {
-    sf::Vector2f position = keyPositions[event_data.keycode];
+    sf::Vector2f position = keyPositions[event_data.keycode & 0x00FF];
 
     const sf::Image key_image(sf::Vector2u(50, 50), sf::Color(100, 100, 100));
     const sf::Texture key_texture(key_image);
@@ -86,7 +86,10 @@ void displayKeyPressed(const keyboard_event_data event_data, sf::RenderWindow &w
 	sf::Font font("Arial.ttf");
 	sf::Text text(font);
 
-	text.setString(static_cast<char>(event_data.rawcode));
+	char letter = static_cast<char>(event_data.rawcode & 0x00FF);
+	char modifier = static_cast<char>(event_data.rawcode & 0xFF00 >> 8);
+
+	text.setString(letter);
 	text.setPosition({position.x + 15, position.y});
 
     window.draw(key_sprite);
@@ -95,7 +98,7 @@ void displayKeyPressed(const keyboard_event_data event_data, sf::RenderWindow &w
 }
 
 void displayKeyReleased(const keyboard_event_data event_data, sf::RenderWindow &window) {
-	sf::Vector2f position = keyPositions[event_data.keycode];
+	const sf::Vector2f position = keyPositions[event_data.keycode & 0x00FF];
 
     const sf::Image key_image(sf::Vector2u(50, 50), sf::Color(50, 50, 50));
     const sf::Texture key_texture(key_image);
